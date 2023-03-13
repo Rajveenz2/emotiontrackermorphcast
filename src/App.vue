@@ -27,7 +27,7 @@ onUnmounted(() => {
 </template>
 
 <style>
-@import "@/assets/base.css";
+@import "./assets/base.css";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat");
 
 #app {
