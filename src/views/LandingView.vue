@@ -3,7 +3,7 @@ import EmotionsBars from "@/components/EmotionsBars.vue";
 import CameraComponent from "@/components/CameraComponent.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import { getAiSdkControls } from "../morphcast-ai-sdk/ai-sdk-loader";
-import Dropdown from "primevue/dropdown";
+import SelectButton from "primevue/selectbutton";
 
 onMounted(async () => {
   const { source, start } = await getAiSdkControls();
@@ -20,14 +20,20 @@ onUnmounted(async () => {
 </script>
 
 <template>
-  <div class="card flex justify-content-center">
-    <Dropdown
-      v-model="selectedVideo"
+  <!-- <Dropdown
+      v-model="video"
       :options="videos"
       optionLabel="name"
       placeholder="Select a Video"
       class="w-full md:w-14rem"
-      @change="loadVideo()"
+      @click="loadVideo()"
+    /> -->
+  <div class="card flex-centered justify-content-center">
+    <SelectButton
+      v-model="video"
+      :options="videos"
+      aria-labelledby="basic"
+      @click="loadVideo"
     />
   </div>
 
@@ -70,18 +76,15 @@ export default {
     return {
       showVideo1: false,
       showVideo2: false,
-      selectedVideo: [],
-      videos: [
-        { name: "Clutter 1", code: "1" },
-        { name: "Clutter 2", code: "2" },
-      ],
+      video: ["2"],
+      videos: ["1", "2"],
     };
   },
 
   methods: {
     loadVideo() {
-      console.log(this.selectedVideo)
-      if (this.selectedVideo.code == "1") {
+      console.log(this.video);
+      if (this.video == "1") {
         this.showVideo1 = true;
         this.showVideo2 = false;
       } else {
