@@ -4,7 +4,7 @@ import CameraComponent from "@/components/CameraComponent.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import { getAiSdkControls } from "../morphcast-ai-sdk/ai-sdk-loader";
 import SelectButton from "primevue/selectbutton";
-
+let video = "1";
 onMounted(async () => {
   const { source, start } = await getAiSdkControls();
   await source.useCamera({
@@ -28,15 +28,17 @@ onUnmounted(async () => {
       class="w-full md:w-14rem"
       @click="loadVideo()"
     /> -->
+
   <div class="card flex-centered justify-content-center">
     <SelectButton
       v-model="video"
       :options="videos"
+      optionLabel="_id"
       aria-labelledby="basic"
-      @click="loadVideo"
+      @click="loadVideo(video._id)"
     />
   </div>
-
+  {{ video }}
   <div class="flex-centered text-white" v-if="showVideo1">
     <iframe
       width="1200"
@@ -74,17 +76,17 @@ onUnmounted(async () => {
 export default {
   data() {
     return {
+      video: "1",
       showVideo1: false,
       showVideo2: false,
-      video: ["2"],
-      videos: ["1", "2"],
+      videos: [{ _id: "1" }, { _id: "2" }],
     };
   },
 
   methods: {
-    loadVideo() {
-      console.log(this.video);
-      if (this.video == "1") {
+    loadVideo(v) {
+      console.log(v);
+      if (v == "1") {
         this.showVideo1 = true;
         this.showVideo2 = false;
       } else {
