@@ -5,11 +5,6 @@ import { onMounted, onUnmounted, ref } from "vue";
 import { getAiSdkControls } from "../morphcast-ai-sdk/ai-sdk-loader";
 import SelectButton from "primevue/selectbutton";
 
-// const showVideo1 = false;
-// const showVideo2 = false;
-const video = [];
-
-
 onMounted(async () => {
   const { source, start } = await getAiSdkControls();
   await source.useCamera({
@@ -81,7 +76,7 @@ export default {
     return {
       showVideo1: false,
       showVideo2: false,
-      // // video: ["2"],
+      video: ["2"],
       videos: ["1", "2"],
     };
   },
