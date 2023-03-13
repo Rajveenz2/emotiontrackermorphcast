@@ -27,7 +27,7 @@ onUnmounted(async () => {
       optionLabel="name"
       placeholder="Select a Video"
       class="w-full md:w-14rem"
-      @change="loadVideo(selectedVideo)"
+      @change="loadVideo()"
     />
   </div>
 
@@ -38,7 +38,7 @@ onUnmounted(async () => {
       src="https://www.youtube.com/embed/kiFategf11Y"
       title="YouTube video player"
       frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allow="web-share"
       allowfullscreen
     ></iframe>
   </div>
@@ -50,7 +50,7 @@ onUnmounted(async () => {
       src="https://www.youtube.com/embed/1uu5Y8HdTLQ"
       title="YouTube video player"
       frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allow="web-share"
       allowfullscreen
     ></iframe>
   </div>
@@ -70,7 +70,7 @@ export default {
     return {
       showVideo1: false,
       showVideo2: false,
-      selectedVideo: null,
+      selectedVideo: [],
       videos: [
         { name: "Clutter 1", code: "1" },
         { name: "Clutter 2", code: "2" },
@@ -79,8 +79,9 @@ export default {
   },
 
   methods: {
-    loadVideo(video) {
-      if (video.code == "1") {
+    loadVideo() {
+      console.log(this.selectedVideo)
+      if (this.selectedVideo.code == "1") {
         this.showVideo1 = true;
         this.showVideo2 = false;
       } else {
