@@ -4,15 +4,7 @@ import CameraComponent from "@/components/CameraComponent.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import { getAiSdkControls } from "../morphcast-ai-sdk/ai-sdk-loader";
 import SelectButton from "primevue/selectbutton";
-import InputText from "primevue/inputtext";
-import Image from "primevue/image";
-const video = ref(null);
-const url = ref("");
-const videos = ref([{ _id: "1" }, { _id: "2" }]);
-const showVideo1 = ref(false);
-const showVideo2 = ref(false);
-const showUrl = ref(false);
-
+let video = "1";
 onMounted(async () => {
   const { source, start } = await getAiSdkControls();
   await source.useCamera({
@@ -28,18 +20,15 @@ onUnmounted(async () => {
 </script>
 
 <template>
-  <div class="flex-centered justify-content-center">
-    <Image
-      src="https://www.insightzclub.com/wp-content/uploads/2019/02/logo.png"
-      alt="Image"
-      width="250"
-      height="60"
-    />
-  </div>
-  <div class="card flex-centered justify-content-center gap-3">
-    <InputText v-model="url" placeholder="Enter URL" @change="loadUrl()" />
-  </div>
-  <hr class="solid" />
+  <!-- <Dropdown
+      v-model="video"
+      :options="videos"
+      optionLabel="name"
+      placeholder="Select a Video"
+      class="w-full md:w-14rem"
+      @click="loadVideo()"
+    /> -->
+
   <div class="card flex-centered justify-content-center">
     <SelectButton
       v-model="video"
@@ -49,17 +38,7 @@ onUnmounted(async () => {
       @click="loadVideo(video._id)"
     />
   </div>
-  <div class="flex-centered text-white" v-if="showUrl">
-    <iframe
-      width="1200"
-      height="500"
-      :src="url"
-      title="YouTube video player"
-      frameborder="0"
-      allow="web-share"
-      allowfullscreen
-    ></iframe>
-  </div>
+  {{ video }}
   <div class="flex-centered text-white" v-if="showVideo1">
     <iframe
       width="1200"
@@ -95,15 +74,14 @@ onUnmounted(async () => {
 
 <script type="text/javascript">
 export default {
-  // data() {
-  //   return {
-  //     video: [],
-  //     url: "",
-  //     showVideo1: false,
-  //     showVideo2: false,
-  //     videos: [{ _id: "1" }, { _id: "2" }],
-  //   };
-  // },
+  data() {
+    return {
+      video: "1",
+      showVideo1: false,
+      showVideo2: false,
+      videos: [{ _id: "1" }, { _id: "2" }],
+    };
+  },
 
   methods: {
     loadVideo(v) {
@@ -111,16 +89,10 @@ export default {
       if (v == "1") {
         this.showVideo1 = true;
         this.showVideo2 = false;
-        this.showUrl = false;
       } else {
         this.showVideo2 = true;
         this.showVideo1 = false;
-        this.showUrl = false;
       }
-    },
-
-    loadUrl() {
-      this.showUrl = true;
     },
   },
 };
@@ -155,12 +127,12 @@ hr.solid {
 }
 
 .card {
-  background: aqua;
+  background: var(--surface-card);
   margin-top: 2%;
   margin-left: auto !important;
   margin-right: auto !important;
   /* border-radius: 10px; */
-  width: auto;
+  width: 20%;
   height: 10px;
   margin-bottom: 1rem;
 }
