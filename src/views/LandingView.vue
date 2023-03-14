@@ -7,6 +7,7 @@ import SelectButton from "primevue/selectbutton";
 import InputText from "primevue/inputtext";
 import Image from "primevue/image";
 let video = "1";
+let url = [];
 onMounted(async () => {
   const { source, start } = await getAiSdkControls();
   await source.useCamera({
@@ -92,7 +93,7 @@ onUnmounted(async () => {
 export default {
   data() {
     return {
-      url: "",
+      url: null,
       showUrl: false,
       video: "1",
       showVideo1: false,
