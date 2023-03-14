@@ -4,6 +4,8 @@ import CameraComponent from "@/components/CameraComponent.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import { getAiSdkControls } from "../morphcast-ai-sdk/ai-sdk-loader";
 import SelectButton from "primevue/selectbutton";
+import InputText from "primevue/inputtext";
+import Image from "primevue/image";
 let video = "1";
 onMounted(async () => {
   const { source, start } = await getAiSdkControls();
@@ -20,14 +22,18 @@ onUnmounted(async () => {
 </script>
 
 <template>
-  <!-- <Dropdown
-      v-model="video"
-      :options="videos"
-      optionLabel="name"
-      placeholder="Select a Video"
-      class="w-full md:w-14rem"
-      @click="loadVideo()"
-    /> -->
+  <div class="flex-centered justify-content-center">
+    <Image
+      src="https://www.insightzclub.com/wp-content/uploads/2019/02/logo.png"
+      alt="Image"
+      width="250"
+      height="60"
+    />
+  </div>
+  <div class="card flex-centered justify-content-center gap-3">
+    <InputText v-model="url" placeholder="Enter URL" @change="loadUrl()" />
+  </div>
+  <hr class="solid" />
 
   <div class="card flex-centered justify-content-center">
     <SelectButton
@@ -38,7 +44,17 @@ onUnmounted(async () => {
       @click="loadVideo(video._id)"
     />
   </div>
-  {{ video }}
+  <div class="flex-centered text-white" v-if="showUrl">
+    <iframe
+      width="1200"
+      height="500"
+      :src="url"
+      title="YouTube video player"
+      frameborder="0"
+      allow="web-share"
+      allowfullscreen
+    ></iframe>
+  </div>
   <div class="flex-centered text-white" v-if="showVideo1">
     <iframe
       width="1200"
@@ -76,6 +92,8 @@ onUnmounted(async () => {
 export default {
   data() {
     return {
+      url: "",
+      showUrl: false,
       video: "1",
       showVideo1: false,
       showVideo2: false,
@@ -89,10 +107,18 @@ export default {
       if (v == "1") {
         this.showVideo1 = true;
         this.showVideo2 = false;
+        this.showUrl = false;
       } else {
         this.showVideo2 = true;
         this.showVideo1 = false;
+        this.showUrl = false;
       }
+    },
+
+    loadUrl() {
+      this.showUrl = true;
+      this.showVideo1 = false;
+      this.showVideo2 = false;
     },
   },
 };
@@ -127,12 +153,12 @@ hr.solid {
 }
 
 .card {
-  background: var(--surface-card);
+  background: aqua;
   margin-top: 2%;
   margin-left: auto !important;
   margin-right: auto !important;
   /* border-radius: 10px; */
-  width: 20%;
+  width: auto%;
   height: 10px;
   margin-bottom: 1rem;
 }
