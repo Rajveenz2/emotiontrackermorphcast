@@ -43,7 +43,7 @@ onUnmounted(async () => {
     <iframe
       width="1200"
       height="500"
-      src="https://www.youtube.com/embed/kiFategf11Y"
+      src="https://www.youtube.com/embed/23Z7aFLAm38"
       title="YouTube video player"
       frameborder="0"
       allow="web-share"
@@ -55,7 +55,7 @@ onUnmounted(async () => {
     <iframe
       width="1200"
       height="500"
-      src="https://www.youtube.com/embed/1uu5Y8HdTLQ"
+      src="https://www.youtube.com/embed/nZ_Wxj6W-QE"
       title="YouTube video player"
       frameborder="0"
       allow="web-share"
